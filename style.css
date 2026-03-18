@@ -1,0 +1,306 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+
+:root {
+    --color-primario-verde: #88b74e;
+    --color-secundario-azul: #92d7f7;
+    --color-acento-naranja: #e7865d;
+    --color-fondo-crema: #fffceb;
+    --color-texto-marron: #7c3b24;
+    --sombra-suave: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1, h2, h3, .brand-name, .rectangulo {
+    font-family: 'ITC Motter Corpus Condensed', 'Alfa Slab One', cursive;
+    font-weight: normal;
+}
+
+body {
+    background-color: var(--color-fondo-crema);
+    color: var(--color-texto-marron);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header y Menú Móvil */
+header {
+    background-color: white;
+    padding: 1rem 2rem;
+    box-shadow: var(--sombra-suave);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: var(--color-texto-marron);
+}
+
+.isotipo {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.brand-name {
+    font-size: 1.8rem;
+    color: var(--color-primario-verde);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-texto-marron);
+    cursor: pointer;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: var(--color-texto-marron);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+nav a:hover, nav a.activo {
+    color: var(--color-primario-verde);
+}
+
+/* Contenedor Principal */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    flex: 1;
+    width: 100%;
+}
+
+/* Inicio */
+.titulo-principal {
+    text-align: center;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--color-primario-verde);
+    margin-bottom: 1rem;
+}
+
+.rectangulos-nav {
+    display: flex;
+    gap: 2rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+}
+
+.rectangulo {
+    flex: 1;
+    min-width: 250px;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: var(--sombra-suave);
+    color: white;
+}
+
+.rectangulo.tienda { background-color: var(--color-primario-verde); }
+.rectangulo.excursiones { background-color: var(--color-secundario-azul); color: var(--color-texto-marron); }
+
+.rectangulo:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(231, 134, 93, 0.4);
+    background-color: var(--color-acento-naranja);
+    color: white;
+}
+
+.sobre-nosotros h2 {
+    font-size: 2.5rem;
+    color: var(--color-acento-naranja);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.equipo-img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: var(--sombra-suave);
+}
+
+.mision {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--sombra-suave);
+    border-left: 6px solid var(--color-secundario-azul);
+}
+
+/* Tienda: Buscador y Filtros */
+.controles-tienda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1.5rem;
+}
+
+#shop-search {
+    width: 100%;
+    max-width: 500px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--color-secundario-azul);
+    border-radius: 25px;
+}
+
+.filtros-categoria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.btn-filtro {
+    background-color: white;
+    color: var(--color-texto-marron);
+    border: 2px solid var(--color-primario-verde);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-filtro.activo, .btn-filtro:hover {
+    background-color: var(--color-primario-verde);
+    color: white;
+}
+
+/* Grilla de Productos */
+.grid-tienda {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+.producto-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--sombra-suave);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.producto-card:hover { transform: translateY(-5px); }
+
+.enlace-producto { text-decoration: none; color: inherit; display: block; }
+
+.img-container {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fafafa;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.img-container img { width: 100%; height: 100%; object-fit: contain; }
+
+.producto-card h3 { color: var(--color-texto-marron); margin-bottom: 0.5rem; font-size: 1.4rem; }
+.descripcion-corta { font-size: 0.95rem; color: #555; margin-bottom: 1rem; }
+.precio { font-size: 1.5rem; font-weight: bold; color: var(--color-primario-verde); margin: 1rem 0; }
+
+/* Página de Producto (Breadcrumbs y Spinner) */
+.breadcrumbs {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: #666;
+}
+.breadcrumbs a { color: var(--color-secundario-azul); text-decoration: none; font-weight: bold; }
+.breadcrumbs a:hover { color: var(--color-primario-verde); text-decoration: underline; }
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--color-primario-verde);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: girar 1s linear infinite;
+    margin: 3rem auto;
+}
+@keyframes girar { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.btn-whatsapp {
+    display: block;
+    background-color: #25D366;
+    color: white;
+    padding: 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+}
+.btn-whatsapp:hover { background-color: #1ebe57; }
+
+/* Footer */
+footer { background-color: var(--color-primario-verde); color: white; padding: 2rem; text-align: center; margin-top: auto; }
+.social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1rem; }
+.social-links a { color: white; text-decoration: none; font-weight: bold; }
+
+/* DISEÑO RESPONSIVO (MÓVILES) */
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    nav {
+        display: none; /* Oculto por defecto en móviles */
+        width: 100%;
+        flex-direction: column;
+        background-color: white;
+        text-align: center;
+        padding: 1rem 0;
+        gap: 15px;
+    }
+    nav.activo { display: flex; } /* Clase que activaremos con JavaScript */
+    
+    .container { padding: 1.5rem; }
+    .rectangulos-nav { flex-direction: column; gap: 1rem; }
+    .rectangulo { padding: 2rem 1rem; }
+    .mision { padding: 1.5rem; }
+    
+    .producto-detalle-contenedor {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventurisla | Expediciones por el Humedal</title>
+    <meta property="og:title" content="Aventurisla">
+    <meta property="og:description" content="Excursiones ambientales, educativas y recreativas guiadas por el delta del río Paraná.">
+    <meta property="og:image" content="https://tu-usuario.github.io/aventurisla/isotipo.aventurisla.jpg">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="isotipo.aventurisla.jpg" alt="Isotipo Aventurisla" class="isotipo">
+            <span class="brand-name">Aventurisla</span>
+        </a>
+        <button class="menu-toggle" id="btn-menu">☰</button>
+        <nav id="menu-navegacion">
+            <a href="index.html" class="activo">Inicio</a>
+            <a href="tienda.html">Tiendita</a>
+            <a href="excursiones.html">Excursiones</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="titulo-principal">Bienvenidos a Aventurisla</h1>
+
+        <div class="rectangulos-nav">
+            <a href="tienda.html" class="rectangulo tienda">Ir a la Tiendita</a>
+            <a href="excursiones.html" class="rectangulo excursiones">Futuras Excursiones</a>
+        </div>
+
+        <section class="sobre-nosotros">
+            <h2>Sobre nosotros</h2>
+            <img src="equipo.aventurisla.jpg" alt="Equipo Aventurisla" class="equipo-img">
+            
+            <div class="mision">
+                <p>Con el objetivo de acercar a las personas al humedal de manera responsable, sostenible y regular, diseñamos y realizamos excursiones ambientales, educativas y recreativas guiadas por el delta del río Paraná, orientadas a fomentar el cuidado y la valoración del ambiente.</p>
+                <br>
+                <p>Las propuestas están dirigidas a personas e instituciones interesadas en aprender sobre la naturaleza, la geografía, las problemáticas socioambientales, la historia y la cultura del humedal, tanto del ámbito local como de turistas nacionales e internacionales.</p>
+                <br>
+                <p>Ofrecemos experiencias personalizadas que integran senderismo interpretativo y navegación guiada, articulando con actores locales y saberes del territorio. Cada experiencia es planificada en detalle, con tiempos definidos y dinámicas recreativas, priorizando siempre la seguridad y el bienestar de los participantes.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Aventurisla - Todos los derechos reservados.</p>
+            <div class="social-links">
+                <a href="https://wa.me/5493412179557" target="_blank">WhatsApp</a>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica del menú hamburguesa
+        document.getElementById('btn-menu').addEventListener('click', function() {
+            document.getElementById('menu-navegacion').classList.toggle('activo');
+        });
+    </script>
+</body>
+</html>

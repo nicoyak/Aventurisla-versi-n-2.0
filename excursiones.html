@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excursiones | Aventurisla</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="isotipo.aventurisla.jpg" alt="Isotipo Aventurisla" class="isotipo">
+            <span class="brand-name">Aventurisla</span>
+        </a>
+        <button class="menu-toggle" id="btn-menu">☰</button>
+        <nav id="menu-navegacion">
+            <a href="index.html">Inicio</a>
+            <a href="tienda.html">Tiendita</a>
+            <a href="excursiones.html" class="activo">Excursiones</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div style="text-align: center; padding: 5rem 2rem; background-color: white; border-radius: 15px; box-shadow: var(--sombra-suave);">
+            <h1 style="color: var(--color-primario-verde); font-size: 3rem; margin-bottom:1rem;">🚧 Sección en Construcción 🚧</h1>
+            <p style="font-size: 1.5rem; margin-top: 2rem;">Estamos preparando todo para mostrarte nuestras próximas aventuras por el humedal.</p>
+            <p style="font-size: 1.2rem; margin-top: 1rem; color: var(--color-acento-naranja);">¡Vuelve pronto para enterarte de las futuras salidas!</p>
+            
+            <br><br>
+            <a href="index.html" class="btn-whatsapp" style="display:inline-block; max-width: 300px;">Volver al Inicio</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Aventurisla - Todos los derechos reservados.</p>
+            <div class="social-links">
+                <a href="https://wa.me/5493412179557" target="_blank">WhatsApp</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('btn-menu').addEventListener('click', function() {
+            document.getElementById('menu-navegacion').classList.toggle('activo');
+        });
+    </script>
+</body>
+</html>

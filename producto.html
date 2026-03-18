@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto | Aventurisla</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="isotipo.aventurisla.jpg" alt="Isotipo Aventurisla" class="isotipo">
+            <span class="brand-name">Aventurisla</span>
+        </a>
+        <button class="menu-toggle" id="btn-menu">☰</button>
+        <nav id="menu-navegacion">
+            <a href="index.html">Inicio</a>
+            <a href="tienda.html" class="activo">Tiendita</a>
+            <a href="excursiones.html">Excursiones</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumbs">
+            <a href="index.html">Inicio</a> &gt; <a href="tienda.html">Tiendita</a> &gt; <span id="bread-nombre">Cargando...</span>
+        </div>
+
+        <div id="loader" class="loader"></div>
+
+        <div id="producto-contenido" style="display: none; background: white; padding: 2rem; border-radius: 15px; box-shadow: var(--sombra-suave); display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
+            
+            <div style="flex: 1; min-width: 300px;">
+                <div class="img-container" style="height: 400px;">
+                    <img id="prod-img" src="" alt="Imagen del producto">
+                </div>
+            </div>
+
+            <div style="flex: 1; min-width: 300px;">
+                <h1 id="prod-nombre" style="color: var(--color-primario-verde); font-size: 2.5rem; margin-bottom: 1rem;">Nombre</h1>
+                <div id="prod-precio" class="precio" style="font-size: 2rem;">$0</div>
+                
+                <div id="prod-desc" style="margin: 1.5rem 0; font-size: 1.1rem;">
+                    </div>
+
+                <a id="prod-whatsapp" href="#" class="btn-whatsapp" target="_blank" style="margin-top: 2rem;">📲 Quiero comprar (Consultar por WhatsApp)</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Aventurisla - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('btn-menu').addEventListener('click', function() {
+            document.getElementById('menu-navegacion').classList.toggle('activo');
+        });
+
+        // BASE DE DATOS LOCAL CON DESCRIPCIONES LARGAS
+        const productosDB = {
+            'expedicion-humedales': {
+                nombre: 'Expedición Humedales', precio: '$30.000', img: 'producto.humedales.jpg',
+                descLarga: '<p>Explorá los humedales argentinos a través de un juego de cartas lleno de biodiversidad. Descubrí especies como el aguará guazú, el ciervo de los pantanos y el yaguareté, mientras aprendés sobre su ecosistema y estado de conservación. Ideal para trabajar contenidos ambientales en escuelas, jugar en familia o en talleres educativos.</p><br><p><strong>Contenido del juego:</strong> 25 cartas de objetivo, 48 cartas de especie, 1 libro de reglamento y 1 libro temático.</p>'
+            },
+            'expedicion-mini': {
+                nombre: 'Expedición Humedales MINI', precio: '$16.000', img: 'producto.humedales_mini.jpg',
+                descLarga: '<p>Versión de bolsillo con 48 cartas de especie y un libro de reglas con toda la información. Compacto, ágil y educativo, perfecto para llevar a todos lados y seguir aprendiendo sobre nuestros humedales en cualquier momento.</p>'
+            },
+            'expedicion-serrana': {
+                nombre: 'Expedición Serrana', precio: '$30.000', img: 'producto.serrana.jpg',
+                descLarga: '<p>Descubre la biodiversidad de las sierras de Córdoba y San Luis a través de un emocionante juego de cartas. Reconocido por su valor pedagógico y su enfoque en la conservación ambiental.</p><br><p><strong>Contenido del juego:</strong> Cartas de objetivo, especies, riesgos y eventos ambientales, además de un libro temático y uno de reglamentos.</p>'
+            },
+            'caza-residuos': {
+                nombre: 'Caza Residuos', precio: '$40.000', img: 'producto.cazaresiduos.jpg',
+                descLarga: '<p>Caza Residuos invita a transformar la ciudad en un gran tablero donde chicos y adultos se convierten en héroes del reciclaje. Fomenta hábitos de reutilización y rediseño de materiales.</p><br><p><strong>Contenido del juego:</strong> Naipes, fichas, un tablero urbano plegable, un libro de reglas y un libro de temática.</p>'
+            }
+        };
+
+        // Extraer el ID de la URL
+        const parametrosURL = new URLSearchParams(window.location.search);
+        const idProducto = parametrosURL.get('id');
+        const producto = productosDB[idProducto];
+
+        const loader = document.getElementById('loader');
+        const contenido = document.getElementById('producto-contenido');
+
+        setTimeout(() => {
+            loader.style.display = 'none';
+            if (producto) {
+                document.title = producto.nombre + " | Aventurisla";
+                document.getElementById('bread-nombre').innerText = producto.nombre;
+                document.getElementById('prod-img').src = producto.img;
+                document.getElementById('prod-nombre').innerText = producto.nombre;
+                document.getElementById('prod-precio').innerText = producto.precio;
+                document.getElementById('prod-desc').innerHTML = producto.descLarga;
+                
+                const mensaje = encodeURIComponent('Buenas! Quiero consultar por ' + producto.nombre);
+                document.getElementById('prod-whatsapp').href = `https://wa.me/5493412179557?text=${mensaje}`;
+                
+                contenido.style.display = 'flex';
+            } else {
+                contenido.innerHTML = '<h2 style="color:red; text-align:center; width:100%;">Producto no encontrado :(</h2>';
+                contenido.style.display = 'block';
+            }
+        }, 500);
+    </script>
+</body>
+</html>
