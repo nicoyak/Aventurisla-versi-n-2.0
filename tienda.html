@@ -61,23 +61,36 @@
     </footer>
 
     <script>
-        // Menú hamburguesa
+        // Enlace adaptado a formato CSV
+        const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSheUwZ7KYvoxC8VEw3as8yU4s8csUiCAlN8hyToTCPSBnWpVOi1RS_7jcGV_4DVtDCTQCYpRzLOXUi/pub?output=csv";
+
         document.getElementById('btn-menu').addEventListener('click', function() {
             document.getElementById('menu-navegacion').classList.toggle('activo');
         });
 
-        // BASE DE DATOS LOCAL (Hasta conectar Google Sheets)
-        const productosDB = [
-            { id: 'expedicion-humedales', categoria: 'juegos', nombre: 'Expedición Humedales', precio: '$30.000', img: 'producto.humedales.jpg', descCorta: 'Juego de cartas para explorar la flora y fauna de los humedales argentinos.' },
-            { id: 'expedicion-mini', categoria: 'juegos', nombre: 'Expedición Humedales MINI', precio: '$16.000', img: 'producto.humedales_mini.jpg', descCorta: 'Versión de bolsillo para llevar y aprender sobre el humedal a todos lados.' },
-            { id: 'expedicion-serrana', categoria: 'juegos', nombre: 'Expedición Serrana', precio: '$30.000', img: 'producto.serrana.jpg', descCorta: 'Descubre la biodiversidad de las sierras de Córdoba y San Luis jugando.' },
-            { id: 'caza-residuos', categoria: 'juegos', nombre: 'Caza Residuos', precio: '$40.000', img: 'producto.cazaresiduos.jpg', descCorta: 'Transforma la ciudad en un tablero para convertirte en héroe del reciclaje.' }
-        ];
-
         const grid = document.getElementById('product-grid');
         const loader = document.getElementById('loader');
+        let productosDB = [];
 
-        // Función para dibujar las tarjetas
+        function parsearCSV(texto) {
+            const lineas = texto.split('\n');
+            const headers = lineas[0].split(',');
+            const resultado = [];
+
+            for (let i = 1; i < lineas.length; i++) {
+                if (!lineas[i].trim()) continue;
+                const valores = lineas[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const obj = {};
+                headers.forEach((header, index) => {
+                    let valor = valores[index] || '';
+                    valor = valor.replace(/^"|"$/g, '').trim(); 
+                    obj[header.trim()] = valor;
+                });
+                resultado.push(obj);
+            }
+            return resultado;
+        }
+
         function renderizarProductos(productos) {
             grid.innerHTML = ''; 
             if (productos.length === 0) {
@@ -102,14 +115,19 @@
             });
         }
 
-        // Simulamos la carga de datos
-        setTimeout(() => {
-            loader.style.display = 'none';
-            grid.style.display = 'grid';
-            renderizarProductos(productosDB);
-        }, 500); // 0.5 segundos de carga simulada
+        fetch(urlCSV)
+            .then(respuesta => respuesta.text())
+            .then(texto => {
+                productosDB = parsearCSV(texto);
+                loader.style.display = 'none';
+                grid.style.display = 'grid';
+                renderizarProductos(productosDB);
+            })
+            .catch(error => {
+                console.error("Error al cargar los datos:", error);
+                loader.innerHTML = '<p style="color:red; text-align:center; width:100%;">Error al cargar los productos. Por favor, recargá la página.</p>';
+            });
 
-        // Lógica del Buscador
         document.getElementById('shop-search').addEventListener('input', function(e) {
             const texto = e.target.value.toLowerCase();
             const categoriaActiva = document.querySelector('.btn-filtro.activo').dataset.cat;
@@ -122,11 +140,9 @@
             renderizarProductos(filtrados);
         });
 
-        // Lógica de los Filtros de Categoría
         const botonesFiltro = document.querySelectorAll('.btn-filtro');
         botonesFiltro.forEach(btn => {
             btn.addEventListener('click', function() {
-                // Cambiar estado visual del botón
                 botonesFiltro.forEach(b => b.classList.remove('activo'));
                 this.classList.add('activo');
 
