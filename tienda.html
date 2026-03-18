@@ -61,7 +61,6 @@
     </footer>
 
     <script>
-        // Enlace adaptado a formato CSV
         const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSheUwZ7KYvoxC8VEw3as8yU4s8csUiCAlN8hyToTCPSBnWpVOi1RS_7jcGV_4DVtDCTQCYpRzLOXUi/pub?output=csv";
 
         document.getElementById('btn-menu').addEventListener('click', function() {
@@ -99,12 +98,15 @@
             }
 
             productos.forEach(prod => {
+                // Selecciona solo la primera imagen antes de la coma
+                const primeraImagen = prod.img.split(',')[0].trim();
+
                 const card = document.createElement('div');
                 card.className = 'producto-card';
                 card.innerHTML = `
                     <a href="producto.html?id=${prod.id}" class="enlace-producto">
                         <div class="img-container">
-                            <img src="${prod.img}" alt="${prod.nombre}">
+                            <img src="${primeraImagen}" alt="${prod.nombre}">
                         </div>
                         <h3>${prod.nombre}</h3>
                     </a>

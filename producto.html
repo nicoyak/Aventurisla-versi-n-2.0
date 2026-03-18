@@ -59,7 +59,6 @@
     </footer>
 
     <script>
-        // Enlace adaptado a formato CSV
         const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSheUwZ7KYvoxC8VEw3as8yU4s8csUiCAlN8hyToTCPSBnWpVOi1RS_7jcGV_4DVtDCTQCYpRzLOXUi/pub?output=csv";
 
         document.getElementById('btn-menu').addEventListener('click', function() {
@@ -95,20 +94,61 @@
             .then(respuesta => respuesta.text())
             .then(texto => {
                 const productosDB = parsearCSV(texto);
-                
                 const producto = productosDB.find(p => p.id === idBuscado);
                 loader.style.display = 'none';
 
                 if (producto) {
                     document.title = producto.nombre + " | Aventurisla";
                     document.getElementById('bread-nombre').innerText = producto.nombre;
-                    document.getElementById('prod-img').src = producto.img;
                     document.getElementById('prod-nombre').innerText = producto.nombre;
                     document.getElementById('prod-precio').innerText = producto.precio;
                     document.getElementById('prod-desc').innerHTML = producto.descLarga;
                     
                     const mensaje = encodeURIComponent('Buenas! Quiero consultar por ' + producto.nombre);
                     document.getElementById('prod-whatsapp').href = `https://wa.me/5493412179557?text=${mensaje}`;
+                    
+                    // --- LÓGICA DE LA GALERÍA DE IMÁGENES ---
+                    const imgContainer = document.getElementById('prod-img').parentElement;
+                    // Separar los nombres por comas y limpiar espacios vacíos
+                    const imagenes = producto.img.split(',').map(img => img.trim()).filter(img => img !== '');
+                    
+                    // Colocar la primera imagen como principal
+                    document.getElementById('prod-img').src = imagenes[0];
+
+                    // Si hay más de una imagen, crear la galería de miniaturas
+                    if (imagenes.length > 1) {
+                        const galeriaDiv = document.createElement('div');
+                        galeriaDiv.style.display = 'flex';
+                        galeriaDiv.style.gap = '10px';
+                        galeriaDiv.style.marginTop = '15px';
+                        galeriaDiv.style.overflowX = 'auto'; // Permite deslizar si son muchas
+                        galeriaDiv.style.paddingBottom = '5px'; // Espacio para la barra de desplazamiento
+
+                        imagenes.forEach(imgSrc => {
+                            const miniatura = document.createElement('img');
+                            miniatura.src = imgSrc;
+                            miniatura.style.width = '70px';
+                            miniatura.style.height = '70px';
+                            miniatura.style.objectFit = 'cover';
+                            miniatura.style.borderRadius = '8px';
+                            miniatura.style.cursor = 'pointer';
+                            miniatura.style.border = '2px solid transparent';
+                            miniatura.style.transition = 'border 0.3s';
+
+                            // Efecto al pasar el mouse y hacer clic
+                            miniatura.addEventListener('mouseover', () => miniatura.style.border = '2px solid var(--color-primario-verde)');
+                            miniatura.addEventListener('mouseout', () => miniatura.style.border = '2px solid transparent');
+                            
+                            miniatura.addEventListener('click', function() {
+                                document.getElementById('prod-img').src = imgSrc;
+                            });
+
+                            galeriaDiv.appendChild(miniatura);
+                        });
+
+                        // Insertar la galería debajo del contenedor de la imagen principal
+                        imgContainer.parentElement.appendChild(galeriaDiv);
+                    }
                     
                     contenido.style.display = 'flex';
                 } else {
